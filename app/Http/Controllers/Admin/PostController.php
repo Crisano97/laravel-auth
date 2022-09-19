@@ -50,6 +50,8 @@ class PostController extends Controller
     public function show($id)
     {
         //
+        $post = Post::findOrFail($id);
+        return view('admin.posts.show', compact("post"));
     }
 
     /**
@@ -61,6 +63,8 @@ class PostController extends Controller
     public function edit($id)
     {
         //
+        $posts = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('posts'));
     }
 
     /**

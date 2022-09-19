@@ -17,7 +17,7 @@
                             <tr>
                                 <td>{{ $post->id }}</td>
                                 <td>
-                                    <a href="#">
+                                    <a href="{{ route('admin.posts.show', $post->id) }}">
                                         {{ $post->author }}    
                                     </a>
                                 </td>
