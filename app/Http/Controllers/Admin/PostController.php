@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -28,6 +30,8 @@ class PostController extends Controller
     public function create()
     {
         //
+        $post = new Post;
+        return view('admin.posts.create', compact('post'));
     }
 
     /**
@@ -39,6 +43,17 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->all();
+
+        $newPost = new Post;
+        $newPost->author = Auth::user()->name;
+        $newPost->title = $data['title']; 
+        $newPost->post_content = $data['post_content']; 
+        $newPost->post_image = $data['post_image']; 
+        $newPost->post_date = new DateTime(); 
+        $newPost->save(); 
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -63,8 +78,8 @@ class PostController extends Controller
     public function edit($id)
     {
         //
-        $posts = Post::findOrFail($id);
-        return view('admin.posts.edit', compact('posts'));
+        $post = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -77,6 +92,12 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data = $request->all();
+        $newPost = Post::findOrFail($id);
+        
+        $newPost->update($data); 
+
+        return redirect()->route('admin.posts.show', $newPost->id);
     }
 
     /**
@@ -88,5 +109,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }

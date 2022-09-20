@@ -16,19 +16,21 @@
                         @forelse ($posts as $post)
                             <tr>
                                 <td>{{ $post->id }}</td>
-                                <td>
-                                    <a href="{{ route('admin.posts.show', $post->id) }}">
-                                        {{ $post->author }}    
-                                    </a>
-                                </td>
+                                <td>{{ $post->author }}</td>
                                 <td>{{ $post->title }}</td>
                                 <td>
-                                    <a href="" class="btn btn-sm btn-success">
+                                    <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-primary">
+                                        View
+                                    </a>
+                                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-sm btn-success">
                                         Edit
                                     </a>
-                                    <a href="" class="btn btn-sm btn-danger">
-                                        Delete
-                                    </a>
+                                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="d-inline delete-comics">
+                                        @csrf
+                                        @method('DELETE')
+                                        
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
                                 </td>
                                 
                             </tr>

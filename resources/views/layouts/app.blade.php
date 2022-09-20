@@ -40,6 +40,11 @@
                                     Posts
                                 </a>
                             </li>
+                            <li class="mx-3">
+                                <a href="{{ route('admin.posts.create') }}">
+                                    Create new post
+                                </a>
+                            </li>
                         @endguest
                     </ul>
 
