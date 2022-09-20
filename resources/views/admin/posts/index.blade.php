@@ -4,6 +4,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                
+                @if (session('result-message'))
+                    <div class="alert alert-{{ session('result-class-message') }}">
+                        {{ session('result-message') }}
+                    </div>
+                @endif
 
                 <table class="table table-striped">
                     <thead>

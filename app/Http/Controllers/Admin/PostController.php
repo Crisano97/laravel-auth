@@ -53,7 +53,7 @@ class PostController extends Controller
         $newPost->post_date = new DateTime(); 
         $newPost->save(); 
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('result-message', '"'.$newPost['title'].'"'.'Post Created')->with('result-class-message','success');
     }
 
     /**
@@ -97,7 +97,7 @@ class PostController extends Controller
         
         $newPost->update($data); 
 
-        return redirect()->route('admin.posts.show', $newPost->id);
+        return redirect()->route('admin.posts.index', $newPost->id)->with('result-message', '"'.$newPost->title.'"'.'Post Edited')->with('result-class-message','success');
     }
 
     /**
@@ -111,6 +111,6 @@ class PostController extends Controller
         //
         $post = Post::findOrFail($id);
         $post->delete();
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('result-message', '"'.$post->title.'"'.'Post Deleted')->with('result-class-message','danger');
     }
 }
