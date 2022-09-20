@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    protected $validationRules = [
+        'title' => 'required|min:3|max:255',
+        'post_content' => 'required|min:3',
+        'post_image' => 'required|url',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -44,6 +50,8 @@ class PostController extends Controller
     {
         //
         $data = $request->all();
+
+        $validatedData = $request->validate($this->validationRules);
 
         $newPost = new Post;
         $newPost->author = Auth::user()->name;
@@ -93,6 +101,9 @@ class PostController extends Controller
     {
         //
         $data = $request->all();
+
+        $validatedData = $request->validate($this->validationRules);
+
         $newPost = Post::findOrFail($id);
         
         $newPost->update($data); 
