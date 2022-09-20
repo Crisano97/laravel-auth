@@ -12,8 +12,8 @@ class PostController extends Controller
 {
     protected $validationRules = [
         'title' => 'required|min:3|max:255',
-        'post_content' => 'required|min:3',
-        'post_image' => 'required|url',
+        'post_content' => 'required|min:5',
+        'post_image' => 'active_url',
     ];
 
     /**
